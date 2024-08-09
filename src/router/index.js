@@ -10,6 +10,10 @@ const router = createRouter({
       component: TodoView
     },
     {
+      path: '/regist',
+      component: () => import('../views/RegistView.vue')
+    },
+    {
       path: '/about',
       name: 'about',
       // route level code-splitting

@@ -1,16 +1,6 @@
 <template>
-  <h2>註冊</h2>
-  <div>
-    <input type="email" placeholder="Email" v-model="signUpData.email" />
-    <input type="password" placeholder="Password" v-model="signUpData.password" />
-    <input type="text" placeholder="Nickname" v-model="signUpData.nickname" />
-    <button type="button" @click="signUp">Sign Up</button>
-    <div>Uid: {{ signUpUid }}</div>
-    <div v-if="signUpErrMsg != ''">{{ signUpErrMsg }}</div>
-  </div>
-  <br />
-  <h2>登入</h2>
-  <div>
+  <div v-if="loginUser.token == ''">
+    <h2>登入</h2>
     <input type="email" placeholder="Email" v-model="signInData.email" />
     <input type="password" placeholder="Password" v-model="signInData.password" />
     <button type="button" @click="signIn">Sign In</button>
@@ -18,15 +8,15 @@
     <div v-if="signInErrMsg != ''">{{ signInErrMsg }}</div>
   </div>
   <br />
-  <h2>驗證</h2>
-  <div>
+  <div v-if="loginUser.token != ''">
+    <h2>驗證</h2>
     <input type="text" placeholder="Token" :value="loginUser.token" />
     <button type="button" @click="checkOut">Check out</button>
     <div>Check Status: {{ checkOutStatus }}</div>
     <div v-if="checkOutErrMsg != ''">{{ checkOutErrMsg }}</div>
   </div>
-  <h2>登出</h2>
-  <div>
+  <div v-if="loginUser.token != ''">
+    <h2>登出</h2>
     <input type="text" placeholder="Token" :value="loginUser.token" />
     <button type="button" @click="signOut">Sign out</button>
     <div>Status: {{ signOutStatus }}</div>
@@ -80,25 +70,6 @@ const loginUser = ref({
 })
 
 const apiUrl = 'https://todolist-api.hexschool.io'
-const signUpData = ref({
-  email: 'terryd@kali.org',
-  password: 'terryd123',
-  nickname: 'Terry.D'
-})
-const signUpErrMsg = ref('')
-const signUpUid = ref('')
-const signUp = () => {
-  axios
-    .post(apiUrl + '/users/sign_up', signUpData.value)
-    .then((resp) => {
-      signUpErrMsg.value = ''
-      signUpUid.value = resp.data.uid
-    })
-    .catch((error) => {
-      signUpErrMsg.value = error.message
-      signUpUid.value = ''
-    })
-}
 
 const signInData = ref({
   email: 'terryd@kali.org',
