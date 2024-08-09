@@ -6,11 +6,8 @@ import vueDevTools from 'vite-plugin-vue-devtools'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: "/",
-  plugins: [
-    vue(),
-    vueDevTools(),
-  ],
+  base: '/hexschoolVueWeek2/',
+  plugins: [vue(), vueDevTools()],
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
